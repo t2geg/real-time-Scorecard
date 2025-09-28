@@ -1,0 +1,99 @@
+/* Main container for the entire scorecard section */
+.scorecard-container {
+    width: 100%;
+    max-width: 1200px; /* Limit width on large screens */
+    margin: 2rem auto; /* Center the scorecard with some space on top/bottom */
+    padding: 2rem;
+    background-color: #282c34; /* Dark background */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+/* Section for the main team score, overs, and status */
+.main-score {
+    border-bottom: 1px solid #4a4a4a;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.main-score h1 {
+    font-size: 3rem;
+    margin: 0;
+    color: #61dafb; /* React blue for highlight */
+}
+
+.main-score p {
+    font-size: 1.2rem;
+    margin: 0.5rem 0 0;
+    color: #cccccc;
+}
+
+/* Status badge (e.g., IN PROGRESS, COMPLETED) */
+.status-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Different colors for different statuses */
+.status-badge.status-NOT-STARTED {
+    background-color: #f0ad4e; /* Orange for 'Not Started' */
+    color: #1c1c1c;
+}
+.status-badge.status-IN-PROGRESS {
+    background-color: #5cb85c; /* Green for 'In Progress' */
+    color: #ffffff;
+}
+.status-badge.status-COMPLETED {
+    background-color: #d9534f; /* Red for 'Completed' */
+    color: #ffffff;
+}
+
+/* Container for the individual player cards */
+.player-details {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+    gap: 1rem; /* Space between cards */
+}
+
+/* Styling for the batsmen and bowler cards */
+.batsmen-card,
+.bowler-card {
+    background-color: #3a3f4a;
+    padding: 1.5rem;
+    border-radius: 8px;
+    flex-basis: 250px; /* Base width for each card */
+    flex-grow: 1; /* Allows cards to grow and fill space */
+}
+
+.batsmen-card h3,
+.bowler-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    color: #61dafb;
+    border-bottom: 1px solid #555;
+    padding-bottom: 0.5rem;
+}
+
+.batsmen-card p,
+.bowler-card p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.player-stats {
+    font-size: 0.9rem;
+    color: #cccccc;
+}
+

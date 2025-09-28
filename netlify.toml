@@ -1,0 +1,36 @@
+# This file tells Netlify how to build and deploy your site.
+
+[build]
+  # This is the command to build your React/Vite frontend.
+  command = "npm run build"
+  
+  # This is the directory where your serverless functions live.
+  functions = "netlify/functions"
+  
+  # This is the directory where the built frontend is located.
+  publish = "dist"
+
+# This section is for the local dev server.
+# Even though `netlify dev` is broken, this is good practice to have.
+[dev]
+  command = "npm run dev" # Command to start your Vite dev server
+  targetPort = 5173      # The port your Vite server runs on
+  publish = "dist"       # The folder with your static assets
+```
+
+### Step 2: Verify Environment Variables on Netlify
+
+This is the most critical step for this new workflow. Your live previews will only work if Netlify has your keys.
+
+* Go to your Netlify dashboard: **Site configuration > Build & deploy > Environment**.
+* **Double-check** that you have added **all** your environment variables, especially `FIREBASE_SERVICE_ACCOUNT_KEY` (as a secret) and your `VITE_MATCH_ID`.
+
+### Step 3: Test the New "Deploy to Preview" Workflow
+
+1.  Make a small, visible change to one of your React component files (e.g., change the text in the `Hero.tsx` component).
+2.  Commit and push your code to GitHub:
+    ```bash
+    git add .
+    git commit -m "Testing Netlify deploy preview workflow"
+    git push
+    

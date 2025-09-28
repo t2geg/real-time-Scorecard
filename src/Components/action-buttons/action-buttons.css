@@ -1,0 +1,53 @@
+.action-buttons-container {
+    flex: 1;
+    padding: 2rem;
+    background-color: #f4a261;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.action-buttons-container h2 {
+    margin-top: 0;
+    color: #264653;
+}
+
+.action-buttons-container p {
+    color: #2a9d8f;
+    margin-bottom: 1.5rem;
+}
+
+.action-buttons-container button {
+    background-color: #e76f51;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.action-buttons-container button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.action-buttons-container button:hover:not(:disabled) {
+    background-color: #d15a3d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.action-message {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #264653;
+    font-weight: bold;
+}
