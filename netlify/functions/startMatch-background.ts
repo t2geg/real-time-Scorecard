@@ -1,8 +1,6 @@
 import { Handler } from '@netlify/functions';
 import * as admin from 'firebase-admin';
 
-// --- Define the types for our data ---
-// Using the types from your Firebase Function code
 interface Batsman {
   id: string;
   name: string;
@@ -39,8 +37,7 @@ interface MatchData {
   status?: "NOT_STARTED" | "COMPLETED" | "IN_PROGRESS";
 }
 
-// --- Initialize Firebase Admin SDK ---
-// This part reads the secure key from Netlify's environment variables
+
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY || '{}');
 
 if (!admin.apps.length) {

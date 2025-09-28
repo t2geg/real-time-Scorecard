@@ -22,12 +22,9 @@ const ActionButtons = ({ matchId }: ActionButtonsProps) => {
     setIsLoading(true);
     setMessage('');
     setError('');
-    
-    // 3. REMOVED: The component no longer gets the matchId itself.
-    // const matchId = import.meta.env.VITE_DOCUMENT_ID;
 
     try {
-      const response = await fetch('/.netlify/functions/startMatch', {
+      const response = await fetch('/.netlify/functions/startMatch-background', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
