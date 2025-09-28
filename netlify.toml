@@ -18,19 +18,13 @@
   publish = "dist"       # The folder with your static assets
 ```
 
-### Step 2: Verify Environment Variables on Netlify
+After you have replaced the code in your local file, follow these steps:
 
-This is the most critical step for this new workflow. Your live previews will only work if Netlify has your keys.
-
-* Go to your Netlify dashboard: **Site configuration > Build & deploy > Environment**.
-* **Double-check** that you have added **all** your environment variables, especially `FIREBASE_SERVICE_ACCOUNT_KEY` (as a secret) and your `VITE_MATCH_ID`.
-
-### Step 3: Test the New "Deploy to Preview" Workflow
-
-1.  Make a small, visible change to one of your React component files (e.g., change the text in the `Hero.tsx` component).
-2.  Commit and push your code to GitHub:
+1.  **Save** the `netlify.toml` file.
+2.  **Commit** the change and **push** it to GitHub:
     ```bash
-    git add .
-    git commit -m "Testing Netlify deploy preview workflow"
+    git add netlify.toml
+    git commit -m "Fix: Corrected syntax in netlify.toml"
     git push
     
+
