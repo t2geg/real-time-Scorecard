@@ -1,16 +1,16 @@
 import { type Handler } from "@netlify/functions";
 import * as admin from "firebase-admin";
 
-// --- Types ---
+
 interface Batsman { id: string; name: string; runs: number; balls: number; status: "waiting" | "batting" | "out"; }
 interface Bowler { id: string; name: string; runsConceded: number; overs: number; wickets: number; }
 interface Score { totalRuns: number; wickets: number; overs: number; }
 interface Live { strikerId: string; nonStrikerId: string; currentBowlerId: string; }
 interface MatchData { batsmen: Batsman[]; bowlers: Bowler[]; score: Score; live: Live; status?: "NOT_STARTED" | "COMPLETED" | "IN_PROGRESS" | "ERROR"; }
 
-// --- Main Handler ---
+
 export const handler: Handler = async (event) => {
-    // 1. Initialize Firebase Admin
+    
     try {
         const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY || '{}');
         if (!serviceAccount.project_id) {
@@ -25,7 +25,7 @@ export const handler: Handler = async (event) => {
         return { statusCode: 500, body: JSON.stringify({ message: "Backend configuration error." }) };
     }
 
-    // 2. Validate Request
+   
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: JSON.stringify({ message: "Method Not Allowed" }) };
     }
@@ -40,7 +40,7 @@ export const handler: Handler = async (event) => {
         return { statusCode: 400, body: JSON.stringify({ message: "Invalid JSON in request body" }) };
     }
     
-    // 3. Run the Simulation and WAIT for it to complete
+    
     try {
         const db = admin.firestore();
         const matchRef = db.collection("matches").doc(matchId) as admin.firestore.DocumentReference<MatchData>;
@@ -118,7 +118,7 @@ export const handler: Handler = async (event) => {
         await matchRef.update({ status: "COMPLETED" });
         console.log(`[${matchId}] Match simulation completed successfully.`);
 
-        // 4. Return a SUCCESS response AFTER the simulation is done
+       
         return {
             statusCode: 200,
             body: JSON.stringify({ message: `Match simulation completed for ${matchId}` }),
@@ -126,10 +126,10 @@ export const handler: Handler = async (event) => {
 
     } catch (error: any) {
         console.error(`[${matchId}] CRITICAL ERROR during simulation:`, error);
-        // Try to update the status to ERROR in Firestore so the UI can see it
+    
         const db = admin.firestore();
         const matchRefOnError = db.collection("matches").doc(matchId);
-        await matchRefOnError.update({ status: "ERROR" }).catch(); // Ignore errors on this update
+        await matchRefOnError.update({ status: "ERROR" }).catch(); 
         
         return {
             statusCode: 500,
