@@ -1,30 +1,17 @@
-# This file tells Netlify how to build and deploy your site.
+# Netlify build and deploy settings
 
 [build]
-  # This is the command to build your React/Vite frontend.
+  # Command to build your React/Vite frontend
   command = "npm run build"
   
-  # This is the directory where your serverless functions live.
+  # Directory where your serverless functions live
   functions = "netlify/functions"
   
-  # This is the directory where the built frontend is located.
+  # Directory where the built frontend is located
   publish = "dist"
 
-# This section is for the local dev server.
-# Even though `netlify dev` is broken, this is good practice to have.
+# Local dev settings for `netlify dev`
 [dev]
   command = "npm run dev" # Command to start your Vite dev server
-  targetPort = 5173      # The port your Vite server runs on
-  publish = "dist"       # The folder with your static assets
-```
-
-After you have replaced the code in your local file, follow these steps:
-
-1.  **Save** the `netlify.toml` file.
-2.  **Commit** the change and **push** it to GitHub:
-    ```bash
-    git add netlify.toml
-    git commit -m "Fix: Corrected syntax in netlify.toml"
-    git push
-    
-
+  port = 5173             # Port your Vite server runs on
+  publish = "dist"        # Folder with your static assets
