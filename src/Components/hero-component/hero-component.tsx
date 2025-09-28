@@ -1,7 +1,12 @@
-import './hero-component.css';
-import ActionButtons from '../action-buttons/action-buttons';
+import './hero-component.css'; 
+import ActionButtons from '../action-buttons/action-buttons'
 
-const Hero = () => {
+
+interface HeroProps {
+  matchId: string | undefined;
+}
+
+const Hero = ({ matchId }: HeroProps) => {
   return (
     <div className="hero-container">
       <div className="hero-image-wrapper">
@@ -11,9 +16,10 @@ const Hero = () => {
           className="hero-image"
         />
       </div>
-      <ActionButtons />
+      <ActionButtons matchId={matchId} />
     </div>
   );
 };
 
 export default Hero;
+
