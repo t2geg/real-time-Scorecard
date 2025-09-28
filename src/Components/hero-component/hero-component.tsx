@@ -1,4 +1,3 @@
-import React from 'react';
 import './hero-component.css';
 import ActionButtons from '../action-buttons/action-buttons';
 
