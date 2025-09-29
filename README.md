@@ -2,7 +2,7 @@
 
 This web application simulates a short, 3-over cricket match in real-time. It features a modern, decoupled architecture where the match logic is handled by a serverless backend, and the score is updated live on the frontend without needing to refresh the page.
 
-**Live Demo:** [\[Link to your deployed Netlify site\]](https://real-time-cricketscore.netlify.app/)
+**Live Demo:** https://real-time-cricketscore.netlify.app/
 
 ---
 
@@ -84,17 +84,22 @@ npm install
 
 ## 4. Configure Environment Variables
 
-In the root of the project, create a file named `.env` and add:
+In the root of the project, create a file named `.env` and add: env
 
-env
 # For the frontend (Vite)
 VITE_API_KEY="YOUR_FIREBASE_API_KEY"
+
 VITE_AUTH_DOMAIN="YOUR_FIREBASE_AUTH_DOMAIN"
-VITE_PROJECT_ID="YOUR_FIREBASE_PROJECT_ID"
+
+VITE_PROJECT_ID="YOUR_FIREBASE_PROJECT_ID" 
+
 VITE_STORAGE_BUCKET="YOUR_FIREBASE_STORAGE_BUCKET"
-VITE_MESSAGING_SENDER_ID="YOUR_FIREBASE_MESSAGING_SENDER_ID"
-VITE_APP_ID="YOUR_FIREBASE_APP_ID"
-VITE_MATCH_ID="YOUR_FIRESTORE_DOCUMENT_ID"
+
+VITE_MESSAGING_SENDER_ID="YOUR_FIREBASE_MESSAGING_SENDER_ID" 
+
+VITE_APP_ID="YOUR_FIREBASE_APP_ID" 
+
+VITE_MATCH_ID="YOUR_FIRESTORE_DOCUMENT_ID" 
 
 # For the backend (Netlify Function)
 # Paste the entire content of your downloaded service account JSON file inside the quotes.
