@@ -49,7 +49,7 @@ export const handler: Handler = async (event) => {
         await matchRef.update({ status: "IN_PROGRESS" });
         console.log(`[${matchId}] Status updated to IN_PROGRESS.`);
 
-        const outcomes: (number | "WICKET" | "NO_BALL" | "WIDE")[] = [0, 0, 1, 1, 1, 1, 2, 3, 4, 4, 6, "WICKET", "WIDE", "NO_BALL"];
+        const outcomes: (number | "WICKET" | "NO_BALL" | "WIDE")[] = [0, 0, 1, 1, 1, 1, 2, 3, 4, 4, 6, "WICKET", "WIDE", "NO_BALL","WIDE","NO_BALL"];
         let legalBallsInOver = 0;
         const delay = (ms: number): Promise<void> => new Promise(res => setTimeout(res, ms));
 
@@ -65,6 +65,7 @@ export const handler: Handler = async (event) => {
 
             if (legalBallsInOver === 6) {
                 legalBallsInOver = 0;
+                live.currentBowlerId === bowlers[0].id ? (bowlers[0].overs++) : (bowlers[1].overs++);
                 live.currentBowlerId = live.currentBowlerId === bowlers[0].id ? bowlers[1].id : bowlers[0].id;
                 [live.strikerId, live.nonStrikerId] = [live.nonStrikerId, live.strikerId];
             }

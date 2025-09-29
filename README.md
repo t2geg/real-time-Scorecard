@@ -1,93 +1,92 @@
-Real-Time Cricket Scorecard Simulator
+# 🏏 Real-Time Cricket Scorecard Simulator
+
 This web application simulates a short, 3-over cricket match in real-time. It features a modern, decoupled architecture where the match logic is handled by a serverless backend, and the score is updated live on the frontend without needing to refresh the page.
 
-Live Demo: [Link to your deployed Netlify site]
+**Live Demo:** [\[Link to your deployed Netlify site\]](https://real-time-cricketscore.netlify.app/)
 
-🌟 Features
-Live Score Updates: The scorecard automatically updates as the match progresses on the backend, powered by real-time database listeners.
+---
 
-Backend-Driven Simulation: The entire match logic runs on a serverless function, ensuring the simulation continues even if the user closes the browser.
+## 🌟 Features
+- **Live Score Updates:** The scorecard automatically updates as the match progresses on the backend, powered by real-time database listeners.  
+- **Backend-Driven Simulation:** The entire match logic runs on a serverless function, ensuring the simulation continues even if the user closes the browser.  
+- **Component-Based UI:** The user interface is built with React and TypeScript, with a clean separation of concerns.  
+- **Serverless Architecture:** The project uses a modern Jamstack approach with Netlify Functions for backend logic and Google Firebase for the database, ensuring scalability and a generous free tier.  
 
-Component-Based UI: The user interface is built with React and TypeScript, with a clean separation of concerns.
+---
 
-Serverless Architecture: The project uses a modern Jamstack approach with Netlify Functions for backend logic and Google Firebase for the database, ensuring scalability and a generous free tier.
-
-🏗️ Architecture Overview
+## 🏗️ Architecture Overview
 This project uses a hybrid cloud architecture, leveraging the strengths of two different platforms:
 
-Frontend (React + Vite): The user interface is a modern React application built with TypeScript and Vite for a fast development experience. It is hosted on Netlify.
+- **Frontend (React + Vite):** The user interface is a modern React application built with TypeScript and Vite for a fast development experience. It is hosted on Netlify.  
+- **Backend Logic (Serverless Function):** The match simulation is a long-running background function written in TypeScript and hosted on Netlify Functions.  
+- **Database (Firestore):** The single source of truth for the match state is a Google Firebase Firestore document.  
 
-Backend Logic (Serverless Function): The match simulation is a long-running background function written in TypeScript and hosted on Netlify Functions.
+### ⚡ Flow
+1. The user clicks the **"Start Match"** button in the React UI.  
+2. The React app sends a request to the Netlify Background Function.  
+3. The Netlify function runs the ~36 second simulation, updating the Firestore document after each ball.  
+4. The React app has a live listener attached to the Firestore document, and the UI re-renders automatically with every change.  
 
-Database (Firestore): The single source of truth for the match state is a Google Firebase Firestore document.
+---
 
-The flow is as follows:
+## 🛠️ Technologies Used
+**Frontend**
+- React  
+- TypeScript  
+- Vite  
+- CSS  
 
-The user clicks the "Start Match" button in the React UI.
+**Backend**
+- Netlify Functions (Background Functions)  
+- Node.js  
 
-The React app sends a request to the Netlify Background Function.
+**Database**
+- Google Firebase Firestore  
 
-The Netlify function runs the ~36 second simulation, updating the Firestore document after each ball.
+**Deployment & Hosting**
+- Netlify  
+- Git & GitHub  
 
-The React app has a live listener attached to the Firestore document, and the UI re-renders automatically with every change.
+---
 
-🛠️ Technologies Used
-Frontend:
+# 🚀 Setup and Installation
 
-React
+To run this project locally, you will need to have **Node.js** and **npm** installed.
 
-TypeScript
+---
 
-Vite
+## 1. Clone the Repository
 
-CSS
-
-Backend:
-
-Netlify Functions (Background Functions)
-
-Node.js
-
-Database:
-
-Google Firebase Firestore
-
-Deployment & Hosting:
-
-Netlify
-
-Git & GitHub
-
-🚀 Setup and Installation
-To run this project locally, you will need to have Node.js and npm installed.
-
-1. Clone the Repository
+bash
 git clone [your-repository-url]
 cd [your-repository-folder]
 
-2. Install Dependencies
-Install the necessary packages for both the frontend and the backend function.
+---
 
+## 2. Install Dependencies
+
+bash
 npm install
 
-3. Set Up Firebase
-Create a project on the Firebase Console.
+---
 
-Create a Firestore Database in your project. Start in test mode for development.
+## 3. Set Up Firebase
 
-Create a matches collection and add a single document with a randomly generated ID. Populate the fields (batsmen, bowlers, score, live, status) according to the structure defined in src/types/index.ts.
+1. Create a project on the Firebase Console.  
+2. Create a Firestore Database in your project. Start in test mode for development.  
+3. Create a matches collection and add a single document with a randomly generated ID.  
+   - Populate the fields (batsmen, bowlers, score, live, status) according to the structure defined in src/types/index.ts.  
+4. Generate a Service Account Key:  
+   - In your Firebase project, go to Project Settings → Service accounts.  
+   - Click "Generate new private key". A JSON file will be downloaded.  
 
-Generate a Service Account Key:
+---
 
-In your Firebase project, go to Project Settings > Service accounts.
+## 4. Configure Environment Variables
 
-Click "Generate new private key". A JSON file will be downloaded.
+In the root of the project, create a file named `.env` and add:
 
-4. Configure Environment Variables
-In the root of the project, create a file named .env.
-
-Add the following variables, replacing the placeholder values with your own keys:
-
+env
 # For the frontend (Vite)
 VITE_API_KEY="YOUR_FIREBASE_API_KEY"
 VITE_AUTH_DOMAIN="YOUR_FIREBASE_AUTH_DOMAIN"
@@ -101,15 +100,22 @@ VITE_MATCH_ID="YOUR_FIRESTORE_DOCUMENT_ID"
 # Paste the entire content of your downloaded service account JSON file inside the quotes.
 FIREBASE_SERVICE_ACCOUNT_KEY="{...}"
 
-💻 Running Locally
+---
+
+## 5. Running Locally
+
 This project uses the Netlify CLI to simulate the cloud environment locally.
 
-Install the Netlify CLI:
+### Install the Netlify CLI
 
+bash
 npm install netlify-cli --save-dev
 
-Run the development server:
+### Start Development Server
 
+bash
 npx netlify dev
 
-This command will start the Vite server for the frontend and a local server for your startMatch-background.ts function.
+This will start:  
+- the Vite server for the frontend  
+- and a local server for your startMatch-background.ts function. 

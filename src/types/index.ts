@@ -1,3 +1,5 @@
+export type MatchStatus = "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED" | "ERROR";
+
 export interface Batsman {
   id: string;
   name: string;
@@ -31,6 +33,5 @@ export interface MatchData {
   bowlers: Bowler[];
   score: Score;
   live: Live;
-  status?: "NOT_STARTED" | "COMPLETED" | "IN_PROGRESS";
+  status?: MatchStatus;
 }
-

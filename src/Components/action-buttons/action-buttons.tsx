@@ -1,24 +1,22 @@
 import { useState } from 'react';
 import './action-buttons.css';
+import { type MatchStatus } from '../../types'
 
-// 1. Define an interface for the props the component will receive.
 interface ActionButtonsProps {
   matchId: string | undefined;
+  matchStatus: MatchStatus | undefined;
 }
 
-const ActionButtons = ({ matchId }: ActionButtonsProps) => {
+const ActionButtons = ({ matchId, matchStatus }: ActionButtonsProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
-  // It's good practice to have a separate state for errors.
-  const [error, setError] = useState(''); 
+  const [error, setError] = useState('');
 
   const handleStartMatch = async () => {
-    // 2. Add a safety check. If matchId hasn't been passed down yet, show an error.
     if (!matchId) {
-      setError("Error: Match ID is not available yet.");
+      setError("Error: Match ID is not available.");
       return;
     }
-
     setIsLoading(true);
     setMessage('');
     setError('');
@@ -26,41 +24,70 @@ const ActionButtons = ({ matchId }: ActionButtonsProps) => {
     try {
       const response = await fetch('/.netlify/functions/startMatch-background', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // 4. Use the matchId from props in the request body.
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ matchId }),
       });
-
       const result = await response.json();
-
       if (!response.ok) {
-        // Use the error message from the backend if it exists
-        throw new Error(result.message || `Error: ${response.statusText}`);
+        throw new Error(result.message || `Request failed`);
       }
-
-      setMessage(result.result || 'Match started successfully!');
-
+      setMessage(result.message);
     } catch (err: any) {
-      console.error("Failed to start match:", err);
-      // Update the user-facing error state
-      setError(`Failed to start match: ${err.message}`);
+      setError(`Error: ${err.message}`);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleResetMatch = async () => {
+    if (!matchId) {
+      setError("Error: Match ID is not available.");
+      return;
+    }
+    setIsLoading(true);
+    setMessage('');
+    setError('');
+
+    try {
+      const response = await fetch('/.netlify/functions/resetMatch-background', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ matchId }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || `Request failed`);
+      }
+      setMessage(result.message);
+    } catch (err: any) {
+      setError(`Error: ${err.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  let buttonText = '▶️ Start Match';
+  let buttonAction = handleStartMatch;
+  let isButtonDisabled = isLoading || matchStatus === 'IN_PROGRESS';
+
+  if (matchStatus === 'IN_PROGRESS') {
+    buttonText = 'Simulation in Progress...';
+  } else if (matchStatus === 'COMPLETED' || matchStatus === 'ERROR') {
+    buttonText = '🔄 Reset Match';
+    buttonAction = handleResetMatch;
+    isButtonDisabled = isLoading;
+  }
+
   return (
     <div className="action-buttons-container">
       <h2>Match Controls</h2>
-      <p>Start the 3-over match simulation. The results will appear in the scorecard below in real-time.</p>
-      {/* 5. The button is now also disabled if the matchId prop isn't available. */}
-      <button onClick={handleStartMatch} disabled={isLoading || !matchId}>
-        {isLoading ? 'Simulation in Progress...' : '▶️ Start Match'}
+      <p>Start or reset the 3-over match simulation.</p>
+      <button onClick={buttonAction} disabled={isButtonDisabled}>
+        {buttonText}
       </button>
-      {message && <p className="success-message">{message}</p>}
-      {error && <p className="error-message">{error}</p>}
+      
+      {message && !isLoading && <p className="success-message">{message}</p>}
+      {error && !isLoading && <p className="error-message">{error}</p>}
     </div>
   );
 };
