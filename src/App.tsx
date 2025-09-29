@@ -4,7 +4,7 @@ import { db } from './firebaseConfig';
 import { type MatchData } from './types';
 
 import Navbar from './Components/NavBar/Navbar';
-import Hero from './Components/hero-component/hero-component'
+import Hero from './Components/hero-component/hero-component';
 import Scorecard from './Components/scorecard/scorecard';
 
 import './App.css';
@@ -33,9 +33,8 @@ function App() {
       setIsLoading(false);
     });
 
-    
     return () => unsubscribe();
-  }, [matchId]); 
+  }, [matchId]);
 
   if (isLoading) {
     return <div className="loading-screen">Loading Live Scorecard...</div>;
@@ -45,7 +44,7 @@ function App() {
     <div className="app-container">
       <Navbar />
       <main className="main-content">
-        <Hero matchId={matchId} />
+        <Hero matchId={matchId} matchStatus={matchData?.status} />
       </main>
       <Scorecard matchData={matchData} />
     </div>

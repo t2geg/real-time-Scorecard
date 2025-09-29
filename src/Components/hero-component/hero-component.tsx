@@ -1,12 +1,13 @@
-import './hero-component.css'; 
-import ActionButtons from '../action-buttons/action-buttons'
-
+import ActionButtons from '../action-buttons/action-buttons';
+import './hero-component.css';
+import { type MatchStatus } from '../../types';
 
 interface HeroProps {
   matchId: string | undefined;
+  matchStatus: MatchStatus | undefined;
 }
 
-const Hero = ({ matchId }: HeroProps) => {
+const Hero = ({ matchId, matchStatus }: HeroProps) => {
   return (
     <div className="hero-container">
       <div className="hero-image-wrapper">
@@ -16,10 +17,9 @@ const Hero = ({ matchId }: HeroProps) => {
           className="hero-image"
         />
       </div>
-      <ActionButtons matchId={matchId} />
+      <ActionButtons matchId={matchId} matchStatus={matchStatus} />
     </div>
   );
 };
 
 export default Hero;
-
